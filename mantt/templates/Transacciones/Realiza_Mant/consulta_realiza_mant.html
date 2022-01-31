@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Realiza Mantenimiento {{ realiza_mant }}
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+{% include 'sidenav_mant.html' %}
+<h1 class="title">Realiza Mantenimiento {{realiza_mant}}</h1>
+
+<br>
+<table>
+    <tr>
+        <th> Folio Ejecución</th>
+        <td> {{realiza_mant.id}} </td>
+    </tr>
+    <tr>
+        <th> Nombre Ejecución </th>
+        <td> {{realiza_mant.plan_mant}} </td>
+    </tr>
+    <tr>
+        <th> Maquina </th>
+        <td> {{realiza_mant.plan_mant.mant.maquina}} </td>
+    </tr>
+    <tr>
+        <th> Fecha Realizado </th>
+        <td> {{realiza_mant.fecha_realizado}} </td>
+    </tr>
+    <tr>
+        <th> Fecha Plan </th>
+        <td> {{realiza_mant.plan_mant.fecha_plan}} </td>
+    </tr>
+    <tr>
+        <th> Mantenimiento </th>
+        <td>  {{realiza_mant.plan_mant.mant}}  </td>
+    </tr>
+    <tr>
+        <th> Tareas </th>
+        <td> <button type="button" onclick="location.href='{% url 'repxtareas' realiza_mant.plan_mant.mant.id%}'">Ver Tareas</button>  </td>
+    </tr>
+    <tr>
+        <th> Horas </th>
+        <td> {{realiza_mant.plan_mant.horas_plan}} </td>
+    </tr>
+    <tr>
+        <th> Orden de Compra </th>
+        <td> {{realiza_mant.plan_mant.orden_compra}} </td>
+    </tr>
+    <tr>
+        <th> Notas Previas </th>
+        <td> {{realiza_mant.plan_mant.notas}} </td>
+    </tr>
+    <tr>
+        <th> Notas Real </th>
+        <td> {{realiza_mant.notas_real}} </td>
+    </tr>
+</table>
+<br>
+
+
+{% endblock %}

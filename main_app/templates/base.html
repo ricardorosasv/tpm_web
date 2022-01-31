@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    {% comment %}
+    Titulo que encontramos en la pestaña del navegador, no en la página
+    {% endcomment %}
+    <title>
+        {% block title %}
+
+        {% endblock %}
+    </title>
+    
+    {% load static %}
+    {% comment %}
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
+    {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+
+
+</head>
+
+<body>
+
+    
+    <header>
+        
+        <div id="logotipo">
+            <!--logo-->
+            {% comment %}
+            <img src="{% static 'images/colts.png' %}" />
+            {% endcomment %}
+            <h1>TPM WEB APP</h1>
+
+        </div>
+
+    </header>
+
+    <nav>
+        <ul>
+            <li>
+                <a href="{% url 'inicio'%}">Inicio</a>
+            </li>
+            
+            <ul>
+                <li>
+                <a href="{% url 'ini_mant'%}">Mantenimiento</a> 
+                </li>
+            </ul>
+            
+            {% comment %}
+            <li>
+                <a href="{% url 'crear_equipo'%}">Crear Equipo</a>
+            </li>
+            <li>
+                <a href="{% url 'crear_partido'%}">Crear Partido</a>
+            </li>
+            <li>
+                <a href="{% url 'dashboard'%}">Dashboard</a>
+            </li>
+
+            
+            <li>
+                <a href="{% url 'articulos'%}">Articulos</a>
+            </li>
+            {% endcomment %}
+
+        
+
+        
+
+        {% if user.username %}
+            <button type="button" style= "float: right;" onclick="location.href='{% url "logout_page"%}'">LOGOUT</button>
+
+        
+        {% else %}
+        {% comment %}
+        <button type="button" onclick="location.href='{% url "signup"%}'">SIGN UP</button>
+        {% endcomment %}
+        <button type="button" onclick="location.href='{% url 'login_page'%}'">SIGN IN</button>
+        {% endif %}
+    </ul>
+    </nav>
+    <div id="content", name='content', class='main'>
+        <div class="box">
+            {% block content %}
+            <!--Contenido que viene de otros templates-->
+            <strong>Contenido del bloque original! </strong>
+            {% endblock %}
+
+        </div>
+
+    </div>
+    <hr/>
+    <footer>
+        b_sports &copy; Ricardo Rosas {% now "d/m/y"%}
+    </footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Actualiza Estatus
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+{% include 'sidenav_mant.html' %}
+
+<h1 class="title">Actualiza Estatus</h1>
+
+<form action='' method='POST' >
+    {% csrf_token %}
+
+    {{ form.as_p }}
+    <input type='submit' value='Mostrar' />
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Elimina Tarea
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+{% include 'sidenav_mant.html' %}
+<h1 class="title">Elimina Tarea</h1>
+
+<br>
+
+<h2> ¿Estás seguro que deseas eliminar la tarea {{tarea}}? </h2>
+<br>
+
+<form action="{% url 'elimina_tarea' tarea.id%}" method='POST'>
+    {% csrf_token %}
+    <button type="button" onclick="location.href='{% url 'repxtareas' mant.id %}'">Cancelar</button>
+    <br>
+    <input class="elimina_button" type="submit" name="Eliminar" value="Eliminar">
+
+</form>
+{% endblock %}

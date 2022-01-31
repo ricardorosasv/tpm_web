@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Mantenimientos Realizados
+{% endblock %}
+
+{% block content %}
+{% load static %}
+{% include 'sidenav_mant.html'%}
+<h1 class="title">Mantenimientos Realizados
+    <button type="button" style="float: right;" onclick="location.href='{% url 'alta_realiza_mant' %}'">Alta Realiza Mantenimiento</button>
+</h1>
+<br>
+{% comment %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="messages">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+{% endcomment %}
+
+<form action='' >
+
+    {{ form.as_p }}
+    <input type='submit' value='Mostrar' />
+
+</form>
+
+{% if fecha_ini %}
+    {% for area in areas%}
+    <h2> {{ area }} </h2>
+        {% for maquina in maquinas %}
+            {% if maquina.modelo.tipo.area == area%}
+            <table>
+                <tr>
+                    <th> Folio </th>
+                    <th> Mantenimiento </th>
+                    <th> Maquina </th>
+                    <th> Fecha_plan </th>
+                    <th> Consulta </th>
+                    <th> Edita </th>
+                    <th> Elimina </th>
+                </tr>
+                <br>
+                {% for realizado in realizados %}
+                    {% if maquina == realizado.plan_mant.mant.maquina %}
+                        <tr>
+                            <td> {{realizado.id}} </td>
+                            <td> {{realizado.plan_mant.mant}} </td>
+                            <td> <a href="{% url 'maquina' maquina.id %}"> {{realizado.plan_mant.mant.maquina}} </a> </td>
+                            <td> {{realizado.fecha_realizado}} </td>
+                            <td> <button type="button" onclick="location.href='{% url 'consulta_realiza_mant' realizado.id%}'">Consulta</button> </td>
+                            <td> <button class="edita" type="button" onclick="location.href='{% url 'edit_realiza_mant' realizado.id%}'">Edita</button> </td>
+                            <td> <button class="elimina" type="button" onclick="location.href='{% url 'elimina_realiza_mant' realizado.id%}'">Elimina</button> </td>
+                        </tr>
+
+                    {% endif %}
+                {% endfor %}
+            </table>
+            {% endif %}
+
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+{% comment %}
+<p> {{planes}} </p>
+<p> {{realizados}} </p>
+<p> {{pendientes}} </p>
+<p> {{maq_plan}} </p>
+{% endcomment %}
+{% endblock %}

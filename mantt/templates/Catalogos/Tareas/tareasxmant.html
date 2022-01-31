@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Tareas por Mantenimiento
+{% endblock %}
+
+{% block content %}
+{% include 'sidenav_mant.html'%}
+<h1 class="title"> Tareas por Mantenimiento </h1>
+<br>
+
+<h3> {{ mantenimiento }} 
+    <button type="button" style="float: right;" onclick="location.href='{% url 'alta_tarea' mantenimiento.id %}'">Agregar tarea para este mantenimiento</button> </h3>
+<br>
+<br>
+<table class="Rep_Tareas">
+    <tr> 
+        <th class="tarea">Nombre tarea </th>
+        <th class="desc_tarea">Descripcion Tarea </th>
+        <th class="boton">Editar </th>
+        <th class="boton">Eliminar </th>
+    </tr>
+{% for tarea in tareas%}
+    <tr>
+        <td class="tarea"> {{tarea.tarea}} </td>
+        <td class="desc_tarea"> {{tarea.descripcion}} </td>
+        <td class="boton"> <button class="edita" type="button" onclick="location.href='{% url 'edita_tarea' tarea.id%}'">Edita</button> </td>
+        <td class="boton"> <button class="elimina" type="button" onclick="location.href='{% url 'elimina_tarea' tarea.id%}'">Elimina</button> </td>
+    </tr>
+{% endfor %}
+</table>
+    
+
+{% endblock %}

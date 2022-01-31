@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Estatus Equipos
+{% endblock %}
+
+{% block content %}
+{% include 'sidenav_mant.html'%}
+<h1 class="title"> Estatus Equipos  <button type="button" style="float: right;" onclick="location.href='{% url 'crea_estatus' %}'">Nuevo Estatus</button> </h1>
+<br>
+{% if messages %}
+    {% for message in messages %}
+        <div class="messages">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+
+{% comment %}
+<form action='' >
+    {{ form.as_p }}
+    <input type='submit' value='Mostrar' />
+
+</form>
+{% endcomment %}
+<table>
+    <tr>
+        <th> Fecha de Cambio </th>
+        <th> Maquina </th>
+        <th> Estatus </th>
+        <th> Estatus_img </th>
+    </tr>
+{% for l in lista %}
+    <tr>
+        <td> {{l.fecha_cambio}} </td>
+        <td> {{l.maquina}} </td>
+        <td> {{l.estatus}} </td>
+        <td> <img src="{{l.estatus.img_estatus.url}}" /> </td>
+    </tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+<form action=''  >
+
+    {{ form.as_p }}
+    <input type='submit' value='Mostrar' />
+
+</form>
+<br>
+<table>
+    <tr>
+        <th> Fecha de Cambio </th>
+        <th> Maquina </th>
+        <th> Estatus </th>
+        <th> Estatus_img </th>
+    </tr>
+{% for entrada in entradas %}
+    <tr>
+        <td> {{entrada.fecha_cambio}} </td>
+        <td> {{entrada.maquina}} </td>
+        <td> {{entrada.estatus}} </td>
+        <td> <img src="{{entrada.estatus.img_estatus.url}}" /> </td>
+    </tr>
+
+{% endfor %}
+
+</table>
+
+
+
+{% endblock %}

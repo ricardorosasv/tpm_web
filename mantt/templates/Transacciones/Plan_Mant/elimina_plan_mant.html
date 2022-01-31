@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Elimina Plan Mantenimiento
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+{% include 'sidenav_mant.html' %}
+<h1 class="title">Elimina Plan Mantenimiento</h1>
+
+<br>
+
+<h2> ¿Estás seguro que deseas eliminar el plan de mantenimiento {{plan_mant}}? </h2>
+<br>
+<table>
+    <tr>
+        <th> Folio Plan </th>
+        <td> {{plan_mant.id}} </td>
+    </tr>
+    <tr>
+        <th> Plan </th>
+        <td> {{plan_mant}} </td>
+    </tr>
+    <tr>
+        <th> Maquina </th>
+        <td> {{plan_mant.mant.maquina}} </td>
+    </tr>
+    <tr>
+        <th> Fecha Alta </th>
+        <td> {{plan_mant.fecha_alta}} </td>
+    </tr>
+    <tr>
+        <th> Fecha Plan </th>
+        <td> {{plan_mant.fecha_plan}} </td>
+    </tr>
+    <tr>
+        <th> Mantenimiento </th>
+        <td>  {{plan_mant.mant}}  </td>
+    </tr>
+    <tr>
+        <th> Tareas </th>
+        <td> <button type="button" onclick="location.href='{% url 'repxtareas' plan_mant.mant.id%}'">Ver Tareas</button>  </td>
+    </tr>
+    <tr>
+        <th> Horas </th>
+        <td> {{plan_mant.horas_plan}} </td>
+    </tr>
+    <tr>
+        <th> Orden de Compra </th>
+        <td> {{plan_mant.orden_compra}} </td>
+    </tr>
+    <tr>
+        <th> Notas </th>
+        <td> {{plan_mant.notas}} </td>
+    </tr>
+</table>
+<br>
+
+<form action="{% url 'elimina_plan_mant' plan_mant.id%}" method='POST'>
+    {% csrf_token %}
+    <button type="button" onclick="location.href='{% url 'rep_planes_mant'%}'">Cancelar</button>
+    <br>
+    <input class="elimina_button" type="submit" name="Eliminar" value="Eliminar">
+
+</form>
+{% endblock %}

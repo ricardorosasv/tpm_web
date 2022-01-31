@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Reporte de Documentos
+{% endblock %}
+
+{% block content %}
+{% load static %}
+{% include 'sidenav_mant.html'%}
+<h1 class="title">Reporte de Documentos
+    <button type="button" style="float: right;" onclick="location.href='{% url 'alta_doc' %}'">Alta Documento</button>
+</h1>
+
+<form action=''>
+    {{ form }}
+    <input type='submit' value='Mostrar'/>
+</form>
+
+{% for area in areas %}
+<h3> {{area }} </h3>
+    {% for maquina in maquinas %}
+        {% if area == maquina.modelo.tipo.area %}
+            <table>
+                <tr>
+                    <th> Maquina </th>
+                    <th> Nombre Documento </th>
+                    <th> Documento </th>
+                    <th> Vínculo Sharepoint </th>
+                </tr>
+            {% for documento in documentos %}
+                {% if documento.maquina == maquina %}
+                <tr>
+                    <td> {{documento.maquina}} </td>
+                    <td> {{documento.maquina}} </td>
+                    <td> {{documento.maquina}} </td>
+                    <td> {{documento.maquina}} </td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+            </table>
+        {% endif %}
+    {% endfor %}    
+{% endfor %}
+{% endblock %}

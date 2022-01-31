@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Maquinas
+{% endblock %}
+
+{% block content %}
+{% load static %}
+<h1 class="title">Maquinas</h1>
+<br>
+
+{% include 'sidenav_mant.html' %}
+
+{% for area in areas%}
+<h2> {{ area }} </h2>
+<hr>
+<table class='table_cons_mod_del'>
+    <tr>
+        <th> Maquina </th>
+        <th> Modifica </th>
+        <th> Elimina </th>
+    </tr>
+    {% for maquina in maquinas %}
+        {% if maquina.modelo.tipo.area == area%}
+            <tr><td> <a href="{% url 'maquina' maquina.id %}"> {{ maquina }}</a> </td>
+                <td> <button class="edita" type="button" onclick="location.href='{% url 'maquina' maquina.id%}'">Modifica</button> </td>
+                <td> <button class="elimina" type="button" onclick="location.href='{% url 'maquina' maquina.id%}'">Elimina</button> </td>
+            
+            </tr>
+
+        {% endif %}
+
+    {% endfor %}
+</table>
+{% endfor %}
+
+{% endblock %}

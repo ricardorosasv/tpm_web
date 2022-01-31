@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Dashboard Matenimiento
+{% endblock %}
+
+{% block content %}
+{% include 'sidenav_mant.html'%}
+{% load static %}
+<h1 class="title"> Dashboard Mantenimiento </h1>
+<br>
+{%comment %}
+{% block sidenav %}
+<div id='sidenav_mant' class='sidenav'>
+    <a href="/inicio">Inicio</a>
+    <a href="/mantenimiento">Mantenimiento</a>
+    <a href="/mantenimiento/maquinas">Maquinas</a>
+    <a href="/mantenimiento/estatus">Estatus</a>
+</div>
+{% endblock %}
+{% endcomment %}
+<table class='tile_table'>
+    <tr>
+        <th> Estatus Maquinas </th>
+        <th> Maquinas </th>
+    </tr>
+    <tr>
+        <td> <a href="{% url 'rep_estatus' %}"> <img src="{% static 'images/semaforo-status.png'%}" alt="Semaforo" width="200" height="200"/> </a> </td>
+        <td> <a href="{% url 'rep_maquinas' %}"> <img src="{% static 'images/vcn-530c.png'%}" alt="Maquinas" width="200" height="200"/>  </a> </td>
+    </tr>
+</table>
+
+<table class='tile_table'>
+    <tr>
+        <th> Ver Programa de Mantenimiento </th>
+        <th> Programar Mantenimiento </th>
+    </tr>
+    <tr>
+        <td> </td>
+        <td> </td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <th> Fecha de Cambio </th>
+        <th> Maquina </th>
+        <th> Estatus </th>
+        <th> Estatus_img </th>
+    </tr>
+{% for l in lista %}
+    <tr>
+        <td> {{l.fecha_cambio}} </td>
+        <td> {{l.maquina}} </td>
+        <td> {{l.estatus}} </td>
+        <td> <img src="{{l.estatus.img_estatus.url}}" /> </td>
+    </tr>
+
+{% endfor %}
+
+</table>
+
+
+{% endblock %}

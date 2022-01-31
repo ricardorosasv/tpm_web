@@ -1,0 +1,30 @@
+{% block sidenav %}
+
+<div id='sidenav_mant' class='sidenav'>
+    <ul>
+        <li><a href="/inicio">Inicio</a></li>
+        <li><a href="/mantenimiento">Mantenimiento</a>
+            {% comment%}
+            <ul>
+                <li> <a href="/mantenimiento/maquinas">Maquinas</a> </li>
+                <li> <a href="/mantenimiento/estatus">Estatus</a> </li>
+            </ul>
+            {% endcomment %}
+        </li>
+        <li> <a> Reportes Catálogos </a> </li>
+    <hr>
+        <li> <a href="{% url 'rep_maquinas' %}">Maquinas</a> </li>
+        <li> <a href="{% url 'rep_mants' %}"> Mantenimientos </a> </li>
+        <li> <a href="{% url 'rep_documentos'%}">Documentos</a> </li>
+
+        <li> <a> Reportes Transacciones </a> </li>
+    <hr>
+        <li> <a href="{% url 'rep_estatus' %}">Estatus</a> </li>
+        <li> <a href="{% url 'rep_planes_mant' %}"> Plan Mantenimiento </a> </li>
+        <li> <a href="{% url 'rep_realiza_mant' %}"> Realiza Mantenimiento </a> </li>
+        <li> <a href="{% url 'graficos' %}"> Graficos </a> </li>   
+    </ul>
+  
+    </div>
+
+{% endblock %}

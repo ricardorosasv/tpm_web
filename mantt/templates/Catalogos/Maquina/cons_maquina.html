@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Maquina {{ maquina }}
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+{% include 'sidenav_mant.html' %}
+<h1 class="title">Maquina {{maquina}}</h1>
+
+
+<br>
+<h2> <img src="{{ult_estatus.estatus.img_estatus.url}}" /> {{maquina}}  </h2>
+<br>
+<table>
+    <tr>
+        <th> Imagen </th>
+        <td> <img src="{{maquina.imagen.url}}" width="450" height="400" /> </td>
+    </tr>
+    <tr>
+        <th> Maquina </th>
+        <td> {{maquina}} </td>
+    </tr>
+    <tr>
+        <th> ID Maquina </th>
+        <td> {{maquina.id}} </td>
+    </tr>
+    <tr>
+        <th> Modelo </th>
+        <td> {{maquina.modelo}} </td>
+    </tr>
+    <tr>
+        <th> Número de Serie </th>
+        <td> {{maquina.no_serie}} </td>
+    </tr>
+    <tr>
+        <th> Código Kepler </th>
+        <td> {{maquina.codigo_kepler}} </td>
+    </tr>
+    <tr>
+        <th> Tipo </th>
+        <td> {{maquina.modelo.tipo}} </td>
+    </tr>
+    <tr>
+        <th> Marca </th>
+        <td> {{maquina.modelo.marca}} </td>
+    </tr>
+    <tr>
+        <th> Area </th>
+        <td> {{maquina.modelo.tipo.area}} </td>
+    </tr>
+</table>
+<br>
+<h3> Documentos Relacionados </h3>
+{% for documento in documentos%}
+    <ul><a href="{{ documento.documento.url}}"> {{documento.documento}} </a></ul>
+    <ul><a href="{{ documento.ruta_sharepoint}}"> Sharepoint </a></ul>
+{% endfor %}
+<br>
+<h3> Próximos mantenimientos programados </h3>
+{% for pend in pendientes%}
+    <ul> {{pend}} </ul>
+
+{% endfor %}
+<br>
+<h3> Últimos mantenimientos realizados </h3>
+{% for real in realizados%}
+    <ul> {{real}} </ul>
+{% endfor %}
+<br>
+<h3> Últimos cambios de estatus </h3>
+{% for status in estatus%}
+    <ul> {{status}} </ul>
+{% endfor %}
+
+{% endblock %}

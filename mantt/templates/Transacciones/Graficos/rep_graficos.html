@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Graficos
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+{% include 'sidenav_mant.html' %}
+
+<h1 class="title">Graficos</h1>
+<p> {{mants|safe }} </p>
+
+<img src="{% static 'images/reportes_mant/foo3.png'%}"  alt="Pie_chart" width="600" height="500">
+
+{% endblock %}

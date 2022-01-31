@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Edita Realiza Mantenimiento
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+{% include 'sidenav_mant.html' %}
+
+<h1 class="title">Edita Realiza Mantenimiento</h1>
+
+<form action='' method='POST' >
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type='submit' value='Editar' />
+
+</form>
+
+{% endblock %}
