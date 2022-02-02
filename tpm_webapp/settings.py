@@ -166,7 +166,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # in production, we want cdn
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 from .cdn.conf import * # noqa
 
 # Extra places for collectstatic to find static files.
