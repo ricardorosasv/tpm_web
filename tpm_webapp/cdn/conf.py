@@ -10,4 +10,4 @@ AWS_S3_OBJECT_PARAMETERS={
 AWS_LOCATION= f'https://{AWS_STORAGE_BUCKET_NAME}.sfo3.digitaloceanspaces.com'
 
 DEFAULT_FILE_STORAGE = 'tpm_webapp.cdn.backends.MediaRootS3Boto3Storage'
-STATICFILES_STORAGE = 'tpm_webapp.cdn.backends.StaticRootS3Boto3Storage'
+#STATICFILES_STORAGE = 'tpm_webapp.cdn.backends.StaticRootS3Boto3Storage'
