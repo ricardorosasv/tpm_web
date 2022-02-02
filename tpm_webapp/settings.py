@@ -163,7 +163,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # in production, we want cdn
 
 
 
-#MEDIA_URL = '/media/'
+MEDIA_URL = 'https://tpm-webapp-space.sfo3.digitaloceanspaces.com/media/'
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
