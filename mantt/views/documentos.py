@@ -13,10 +13,12 @@ def alta_doc(request):
     if request.user.is_authenticated:
         form = Alta_documento()
         if request.method == 'POST':
-            form = Alta_documento(request.POST)
+            form = Alta_documento(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
-                return redirect('Catalogos/Maquina/rep_maquinas.html')
+                return redirect('/Catalogos/Maquina/rep_maquinas.html')
+        else:
+            form = Alta_documento()
 
         return render(request, 'Catalogos/Documentos/alta_documento.html',{
             'form' : form
