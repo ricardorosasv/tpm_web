@@ -9,7 +9,8 @@ Reporte Mantenimientos
 
 {% include 'sidenav_mant.html' %}
 
-<h1 class="title">Reporte Mantenimientos</h1>
+<h1 class="title">Reporte Mantenimientos  <button type="button" style="float: right;" onclick="location.href='{% url 'crear_mant' %}'">Crear Mantenimiento</button></h1>
+<br>
 <div class='cabecera'>
     <form action='' >
         
@@ -28,17 +29,21 @@ Reporte Mantenimientos
             <table>
                 <tr>
                     <th> Maquina </th>
+                    <th> Nombre </th>
                     <th> Tipo </th>
                     <th> Periodo </th>
                     <th> Tareas </th>
+                    <th> Planifica </th>
                 </tr>
             {% for mant in mants%}
                 {% if mant.maquina == maquina %}
                 <tr>
                     <td> {{mant.maquina}} </td>
+                    <td> {{mant.nombre_mant}} </td>
                     <td> {{mant.tipo}} </td> 
                     <td> {{mant.periodo}} </td>
-                    <td> <button type="button" onclick="location.href='{% url 'repxtareas' mant.id%}'">Ver Tareas</button> </td>     
+                    <td> <button type="button" onclick="location.href='{% url 'repxtareas' mant.id%}'">Ver Tareas</button> </td>
+                    <td> <button type="button" onclick="location.href='{% url 'alta_plan_mant_2' mant.id%}'">Programar</button> </td>     
                 </tr>
                 {% endif %}
             {% endfor %}

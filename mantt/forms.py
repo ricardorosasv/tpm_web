@@ -51,7 +51,7 @@ class Alta_documento(forms.ModelForm):
         fields = '__all__'
 
 class Alta_plan_mant(forms.ModelForm):
-    fecha_plan = forms.DateField(widget = forms.SelectDateWidget(empty_label="-",months={1:'Enero',
+    fecha_plan = forms.DateField(initial=datetime.date.today(),widget = forms.SelectDateWidget(empty_label="-",months={1:'Enero',
     2: 'Febrero', 3: 'Marzo', 4: 'Abril', 5:'Mayo', 6:'Junio', 7:'Julio',8:'Agosto',9:'Septiembre',
     10: 'Octubre',11:'Noviembre',12:'Diciembre'}))
     
@@ -98,3 +98,12 @@ class Alta_tarea_mant(forms.ModelForm):
     class Meta:
         model = Tarea
         fields = ['tarea','descripcion']
+
+class Alta_plan_mant2(forms.ModelForm):
+    fecha_plan = forms.DateField(initial=datetime.date.today(),widget = forms.SelectDateWidget(empty_label="-",months={1:'Enero',
+    2: 'Febrero', 3: 'Marzo', 4: 'Abril', 5:'Mayo', 6:'Junio', 7:'Julio',8:'Agosto',9:'Septiembre',
+    10: 'Octubre',11:'Noviembre',12:'Diciembre'}))
+    
+    class Meta:
+        model = Plan_mant
+        fields = ['fecha_plan','cod_kepler_prov','orden_compra','horas_plan','notas_plan']

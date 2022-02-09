@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from mantt.forms import Alta_realiza_mant, filtros_form, filtros_maq_form, Alta_realiza_mant_2  
-from mantt.models import Maquina, Plan_mant, Realiza_mant, Area
+from mantt.models import Maquina, Plan_mant, Realiza_mant, Area, Mantenimiento, Modelo
 from datetime import datetime
 from django.contrib.auth.decorators import login_required, permission_required
 
@@ -41,6 +41,14 @@ def rep_realiza_mant(request):
 
         else:
             realizados = Realiza_mant.objects.filter(plan_mant__mant__maquina=maq_filtro,fecha_realizado__range=[fecha_ini,fecha_fin])
+        
+        realiza_mant_vals = realizados.values('plan_mant')
+        plan_mant_vals = Plan_mant.objects.filter(id__in=realiza_mant_vals).values('mant')
+        mant_values = Mantenimiento.objects.filter(id__in=plan_mant_vals).values('maquina')
+        maquinas = Maquina.objects.filter(id__in=mant_values)
+        maq_vals = maquinas.values('modelo')
+        mod_vals = Modelo.objects.filter(id__in=maq_vals).values('tipo')
+        areas = Area.objects.filter(id__in=mod_vals).order_by('nombre_area')
 
         return render(request, 'Transacciones/Realiza_Mant/rep_realiza_mant.html', {
             'areas':areas,

@@ -1,11 +1,16 @@
-from mantt.models import Documento, Area, Maquina, Estatus
+from mantt.models import Documento, Area, Maquina, Estatus, Modelo
 from datetime import datetime
 
 def filtro_maquinas(filtro_request):
     if filtro_request == None or filtro_request == '':
         documentos = Documento.objects.all()
-        areas = Area.objects.all()
-        maquinas = Maquina.objects.all()
+        doc_vals = documentos.values('maquina')
+        maquinas = Maquina.objects.filter(id__in=doc_vals)
+        maq_vals = maquinas.values('modelo')
+        mod_vals = Modelo.objects.filter(id__in=maq_vals).values('tipo')
+
+        areas = Area.objects.filter(id__in=mod_vals)
+
     else:
         maquinas = Maquina.objects.filter(id=filtro_request)
         areas = Area.objects.filter(tipo_maquina__modelo__maquina=filtro_request)

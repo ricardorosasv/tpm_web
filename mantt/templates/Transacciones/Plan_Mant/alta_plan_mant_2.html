@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Crear Mantenimiento
+Alta Plan Mantenimiento
 {% endblock %}
 
 {% block content %}
@@ -9,12 +9,13 @@ Crear Mantenimiento
 
 {% include 'sidenav_mant.html' %}
 
-<h1 class="title">Crear Mantenimiento </h1>
+<h1 class="title">Alta Plan Mantenimiento</h1>
 
 <form action='' method='POST' >
     {% csrf_token %}
-    {{ form }}
-    <input type='submit' value='Mostrar' />
+
+    {{ form.as_p }}
+    <input type='submit' value='Guardar' />
 
 </form>
 

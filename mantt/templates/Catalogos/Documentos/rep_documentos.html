@@ -22,18 +22,18 @@ Reporte de Documentos
         {% if area == maquina.modelo.tipo.area %}
             <table>
                 <tr>
-                    <th> Maquina </th>
                     <th> Nombre Documento </th>
+                    <th> Maquina </th>
                     <th> Documento </th>
                     <th> Vínculo Sharepoint </th>
                 </tr>
             {% for documento in documentos %}
                 {% if documento.maquina == maquina %}
                 <tr>
+                    <td> {{documento.nombre_doc}} </td>
                     <td> {{documento.maquina}} </td>
-                    <td> {{documento.maquina}} </td>
-                    <td> {{documento.maquina}} </td>
-                    <td> {{documento.maquina}} </td>
+                    <td> <a href="{{documento.documento.url}}"> Documento  </a></td>
+                    <td> <a href="{{ documento.ruta_sharepoint}}"> Link </a></td>
                 </tr>
                 {% endif %}
             {% endfor %}
