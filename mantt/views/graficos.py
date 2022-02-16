@@ -3,13 +3,19 @@ from mantt.models import Plan_mant, Realiza_mant
 from datetime import datetime, timedelta
 import pandas as pd
 import matplotlib.pyplot as plt
-from pathlib import Path
-from django.conf import settings as django_settings
-import os
+import io
+from django.conf import settings
+from tpm_webapp.cdn.conf import *
+from boto3 import session
 #from django.conf.urls.static import static
 
 def graficos(request):
-    ruta = os.path.join(django_settings.STATICFILES_DIRS[0],f'images/reportes_mant')
+    sesion = session.Session()
+    client = sesion.client('s3',
+                        region_name='sfo3',
+                        endpoint_url=AWS_S3_ENDPOINT_URL,
+                        aws_access_key_id=AWS_ACCESS_KEY_ID,
+                        aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     planes = Plan_mant.objects.all().values()
     realizados = Realiza_mant.objects.all().values()
     hoy = datetime.today().strftime('%Y-%m-%d')
@@ -29,13 +35,28 @@ def graficos(request):
     joined_df1 = joined_df.drop(columns=['cod_kepler_prov','orden_compra','notas_plan','notas_real','plan_mant_id'])
     df_mants = joined_df1.to_html()
 
+    if settings.DEBUG:
+        fig1, ax1 = plt.subplots()
+        ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
+                shadow=True, startangle=90)
+        ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+        plt.savefig(r'C:\proyectos_prog\tpm_web\static\images\reportes_mant\pie_graph.jpeg')
+        plt.close()
+    else:
+        fig1, ax1 = plt.subplots()
+        ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
+                shadow=True, startangle=90)
+        ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+        fig_to_upload = plt.gcf()
+        # Save figure image to a bytes buffer
+        buf = io.BytesIO()
+        fig_to_upload.savefig(buf, format='jpeg')
+        buf.seek(0)
+        img_bin = buf.read()
 
-    fig1, ax1 = plt.subplots()
-    ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
-            shadow=True, startangle=90)
-    ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-    plt.savefig(os.path.join(ruta,f'foo3.png'))
-    plt.close()
+
+        client.put_object(Body=img_bin, Bucket=AWS_STORAGE_BUCKET_NAME, Key='static/images/reportes_mant/pie_graph.jpeg',ACL="public-read",ContentType="image/jpeg")
+
     return render(request,'Transacciones/Graficos/rep_graficos.html',{
         'mants':df_mants,
     })
