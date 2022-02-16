@@ -35,6 +35,7 @@ def graficos(request):
     joined_df1 = joined_df.drop(columns=['cod_kepler_prov','orden_compra','notas_plan','notas_real','plan_mant_id'])
     df_mants = joined_df1.to_html()
 
+    '''
     if settings.DEBUG:
         fig1, ax1 = plt.subplots()
         ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
@@ -43,19 +44,20 @@ def graficos(request):
         plt.savefig(r'C:\proyectos_prog\tpm_web\static\images\reportes_mant\pie_graph.jpeg')
         plt.close()
     else:
-        fig1, ax1 = plt.subplots()
-        ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
-                shadow=True, startangle=90)
-        ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-        fig_to_upload = plt.gcf()
-        # Save figure image to a bytes buffer
-        buf = io.BytesIO()
-        fig_to_upload.savefig(buf, format='jpeg')
-        buf.seek(0)
-        img_bin = buf.read()
+    '''
+    fig1, ax1 = plt.subplots()
+    ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
+            shadow=True, startangle=90)
+    ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    fig_to_upload = plt.gcf()
+    # Save figure image to a bytes buffer
+    buf = io.BytesIO()
+    fig_to_upload.savefig(buf, format='jpeg')
+    buf.seek(0)
+    img_bin = buf.read()
 
 
-        client.put_object(Body=img_bin, Bucket=AWS_STORAGE_BUCKET_NAME, Key='static/images/reportes_mant/pie_graph.jpeg',ACL="public-read",ContentType="image/jpeg")
+    client.put_object(Body=img_bin, Bucket=AWS_STORAGE_BUCKET_NAME, Key='static/images/reportes_mant/pie_graph.jpeg',ACL="public-read",ContentType="image/jpeg")
 
     return render(request,'Transacciones/Graficos/rep_graficos.html',{
         'mants':df_mants,
