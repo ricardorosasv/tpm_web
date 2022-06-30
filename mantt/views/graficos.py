@@ -7,7 +7,6 @@ import io
 from django.conf import settings
 from tpm_webapp.cdn.conf import *
 from boto3 import session
-import numpy as np
 #from django.conf.urls.static import static
 
 def graficos(request):
@@ -27,48 +26,40 @@ def graficos(request):
     joined_df = df_planes.merge(df_realizados, how='left',left_on='id',right_on='plan_mant_id')
     df_en_fecha = joined_df[(joined_df['fecha_realizado']<=joined_df['fecha_plan'])]
     df_fuera = joined_df[(joined_df['fecha_realizado']>joined_df['fecha_plan'])]
-    no_realizados = joined_df[joined_df['fecha_realizado'].isnull()]
-    condiciones = [(joined_df['fecha_realizado']<=joined_df['fecha_plan']),(joined_df['fecha_realizado']>joined_df['fecha_plan']),(joined_df['fecha_realizado'].isnull())]
-    valores = ['en_fecha','fuera','no_realizados']
-    joined_df['estatus'] = np.select(condiciones,valores)
-
     labels = ['no_realizados','a_tiempo','realizados_fuera']
+    no_realizados = joined_df[joined_df['fecha_realizado'].isnull()]
     sizes = [no_realizados.count()[0],df_en_fecha.count()[0],df_fuera.count()[0]]
-
     joined_df['id_x'] = joined_df['id_x'].astype('Int64')
     joined_df['id_y'] = joined_df['id_y'].astype('Int64')
-    joined_df = joined_df.rename(columns={'id_x':'id_plan','id_y':'id_realiza'}).sort_values('fecha_plan')
+    joined_df = joined_df.rename(columns={'id_x':'id_plan','id_y':'id_realiza'})
     joined_df1 = joined_df.drop(columns=['cod_kepler_prov','orden_compra','notas_plan','notas_real','plan_mant_id'])
     df_mants = joined_df1.to_html()
-    df_resumen = joined_df1.groupby('estatus').count().reset_index()
-    df_res = df_resumen.to_html(columns=['estatus','id_plan'])
 
-    
+    '''
     if settings.DEBUG:
-        fig1, ax1 = plt.subplots(figsize=(3,4))
+        fig1, ax1 = plt.subplots()
         ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
                 shadow=True, startangle=90)
         ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-        plt.savefig(r'C:\proyectos_prog\tpm_web\static\images\reportes_mant\pie_graph.jpeg',bbox_inches='tight',dpi=100)
+        plt.savefig(r'C:\proyectos_prog\tpm_web\static\images\reportes_mant\pie_graph.jpeg')
         plt.close()
     else:
-    
-        fig1, ax1 = plt.subplots(figsize=(3,4))
-        ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
-                shadow=True, startangle=90)
-        ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-        fig_to_upload = plt.gcf()
-        # Save figure image to a bytes buffer
-        buf = io.BytesIO()
-        fig_to_upload.savefig(buf, format='jpeg',bbox_inches='tight',dpi=100)
-        buf.seek(0)
-        img_bin = buf.read()
+    '''
+    fig1, ax1 = plt.subplots()
+    ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
+            shadow=True, startangle=90)
+    ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    fig_to_upload = plt.gcf()
+    # Save figure image to a bytes buffer
+    buf = io.BytesIO()
+    fig_to_upload.savefig(buf, format='jpeg')
+    buf.seek(0)
+    img_bin = buf.read()
 
 
-        client.put_object(Body=img_bin, Bucket=AWS_STORAGE_BUCKET_NAME, Key='static/images/reportes_mant/pie_graph.jpeg',ACL="public-read",ContentType="image/jpeg")
+    client.put_object(Body=img_bin, Bucket=AWS_STORAGE_BUCKET_NAME, Key='static/images/reportes_mant/pie_graph.jpeg',ACL="public-read",ContentType="image/jpeg")
 
     return render(request,'Transacciones/Graficos/rep_graficos.html',{
         'mants':df_mants,
-        'resumen': df_res,
     })
 

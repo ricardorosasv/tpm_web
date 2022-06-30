@@ -8,11 +8,10 @@ Programa de Mantenimiento
 {% load static %}
 {% include 'sidenav_mant.html'%}
 <h1 class="title">Programa de Mantenimiento
-{% comment %}
     <button type="button" style="float: right;" onclick="location.href='{% url 'alta_plan_mant' %}'">Programar Mantenimiento</button>
-
+</h1>
 <br>
-
+{% comment %}
 {% if messages %}
     {% for message in messages %}
         <div class="messages">
@@ -21,7 +20,6 @@ Programa de Mantenimiento
     {% endfor %}
 {% endif %}
 {% endcomment %}
-</h1>
 <div class='cabecera'>
 <form action='' >
     

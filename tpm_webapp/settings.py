@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     #Own
     'main_app',
     'mantt',
-    'rrhh',
 ]
 
 MIDDLEWARE = [
