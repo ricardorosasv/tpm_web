@@ -138,7 +138,7 @@ def alta_plan_mant_2(request,mant):
             fecha_plan = datetime(int(anyo),int(mes),int(dia))
             plan_mant = Plan_mant(fecha_plan=fecha_plan,cod_kepler_prov=cod_kepler_prov,orden_compra=orden_compra,horas_plan=horas_plan ,mant=mant,notas_plan=notas_plan)
             plan_mant.save()
-            return redirect('/mantenimiento/transacciones/reporte-plan-mantenimiento')
+            return redirect('/mantenimiento/transacciones/reporte-mantenimientos')
 
     return render(request, 'Transacciones/Plan_Mant/alta_plan_mant_2.html',{
         'form' : form
