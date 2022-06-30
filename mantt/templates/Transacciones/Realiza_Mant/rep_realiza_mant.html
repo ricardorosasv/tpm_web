@@ -7,7 +7,9 @@ Mantenimientos Realizados
 {% block content %}
 {% load static %}
 {% include 'sidenav_mant.html'%}
-<h1 class="title">Mantenimientos Realizados </h1>
+<h1 class="title">Mantenimientos Realizados
+    <button type="button" style="float: right;" onclick="location.href='{% url 'alta_realiza_mant' %}'">Alta Realiza Mantenimiento</button>
+</h1>
 <br>
 {% comment %}
 {% if messages %}
@@ -18,15 +20,13 @@ Mantenimientos Realizados
     {% endfor %}
 {% endif %}
 {% endcomment %}
-<div class='cabecera'>
+
 <form action='' >
 
     {{ form.as_p }}
     <input type='submit' value='Mostrar' />
 
 </form>
-</div>
-<hr>
 
 {% if fecha_ini %}
     {% for area in areas%}

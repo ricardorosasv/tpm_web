@@ -15,12 +15,10 @@ Maquina {{ maquina }}
 <h2> <img src="{{ult_estatus.estatus.img_estatus.url}}" /> {{maquina}}  </h2>
 <br>
 <table>
-{% if maquina.imagen %}
     <tr>
         <th> Imagen </th>
         <td> <img src="{{maquina.imagen.url}}" width="450" height="400" /> </td>
     </tr>
-{% endif %}
     <tr>
         <th> Maquina </th>
         <td> {{maquina}} </td>
@@ -56,40 +54,25 @@ Maquina {{ maquina }}
 </table>
 <br>
 <h3> Documentos Relacionados </h3>
-<table>
 {% for documento in documentos%}
-<tr>
-    <td><a href="{{ documento.documento.url}}"> {{documento.documento}} </a> </td>
-    <td><a href="{{ documento.ruta_sharepoint}}"> Sharepoint </a></ul> </td>
-</tr>
+    <ul><a href="{{ documento.documento.url}}"> {{documento.documento}} </a></ul>
+    <ul><a href="{{ documento.ruta_sharepoint}}"> Sharepoint </a></ul>
 {% endfor %}
-</table>
 <br>
 <h3> Próximos mantenimientos programados </h3>
-<table>
 {% for pend in pendientes%}
-<tr>
-    <td>{{pend}} </td>
-</tr>
+    <ul> {{pend}} </ul>
+
 {% endfor %}
-</table>
 <br>
 <h3> Últimos mantenimientos realizados </h3>
-<table>
 {% for real in realizados%}
-<tr>
-    <td>{{real}} </td>
-</tr>
+    <ul> {{real}} </ul>
 {% endfor %}
-</table>
 <br>
 <h3> Últimos cambios de estatus </h3>
-<table>
 {% for status in estatus%}
-<tr>
-    <td>{{status}} </td>
-</tr>
+    <ul> {{status}} </ul>
 {% endfor %}
-</table>
 
 {% endblock %}
